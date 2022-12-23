@@ -1,2 +1,5 @@
 fastapi
 uvicorn
+py2neo
+pydantic
+fuzzywuzzy

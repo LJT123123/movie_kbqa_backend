@@ -11,12 +11,29 @@
 @Description:
 """
 from fastapi import FastAPI
+from starlette.middleware.cors import CORSMiddleware
+
 from .module1.routers import module1_router
 from .module2.routers import module2_router
+from .neo.routers import neo_router
 
 
 def create_app():
     app = FastAPI()
     app.include_router(module1_router, prefix='/module1')
     app.include_router(module2_router, prefix='/module2')
+    app.include_router(neo_router, prefix="/neo")
+
+    origins = [
+        "*"
+    ]
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
     return app
